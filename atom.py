@@ -123,7 +123,7 @@ def main():
     print("Version 4.0 [Latest]")
     time.sleep(2)
     print("Produced By Kube0n!")
-    print("Socials: [Discord User; kube0n], [Youtube; Kube0nYT]!")
+    print("Socials: [Discord User; kube0n], [Youtube; Kube0nYT], [Tiktok; kube0n]!")
     time.sleep(2)
     print(f"{BLUE}┌──────────────────────────────────────────────┐{RESET}")
     print(f"{BLUE}│                  Methods!                    │{RESET}")
