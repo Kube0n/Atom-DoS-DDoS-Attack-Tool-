@@ -56,8 +56,9 @@ def run_udp_attack(target_ip, target_port, attack_speed):
                 print(f""" {BLUE}
 ┌─────────────────────────[Atom Output]────────────────────────────┐
 │                           {current_time}            
-│└─ Packet Sent to {target_ip}:{target_port},                [Packet: {packet_count}]         
-│└─ Bytes: {bytes_sent} bytes [MAX], RTT: {rtt}ms,                 
+│└─ Packet Sent to {target_ip}:{target_port},                        
+│└─ Bytes: {bytes_sent} bytes [MAX], RTT: {rtt}ms,     
+│└─ Packet Number: #{packet_count}      
 └──────────────────────────────────────────────────────────────────┘
 {RESET}""")
                 time.sleep(float(attack_speed))
@@ -91,8 +92,9 @@ def run_tcp_attack(target_ip, target_port, attack_speed):
                 print(f""" {BLUE}
 ┌────────────────────[Atom Output]──────────────────────────────────────┐
 │                      {current_time}                                
-│└─ TCP Connection Established & Sent to {target_ip}:{target_port},   [Packet: {packetcount}]
-│└─ Bytes: {bytes_sent} bytes [MAX], RTT: {rtt}ms,                      
+│└─ TCP Connection Established & Sent to {target_ip}:{target_port},
+│└─ Bytes: {bytes_sent} bytes [MAX], RTT: {rtt}ms,       
+│└─ Packet Number: #{packetcount}            
 └───────────────────────────────────────────────────────────────────────┘
 {RESET}""")
             except Exception as exc:
@@ -120,8 +122,9 @@ def run_http_attack(method, target_url, attack_speed, thread_count):
                 print(f""" {BLUE}
 ┌───────────────────────[Atom Output]──────────────────────────┐
 │                        {current_time}                       
-│└─ Sent {method} Request Packet to {target_url},            [Packet: {packetcounts}]
-│└─ Status Code: {response.status}, RTT: {rt}ms,       
+│└─ Sent {method} Request Packet to {target_url},
+│└─ Status Code: {response.status}, RTT: {rt}ms, 
+│└─ Packet Number: #{packetcounts}  
 └──────────────────────────────────────────────────────────────┘
 {RESET}""")
             except Exception as exc:
