@@ -77,11 +77,13 @@ def run_udp_attack(target_ip, target_port, attack_speed):
                 print(f"{BLUE}[Atom Output]:{RESET} Failed to send packet: {exc}")
                 time.sleep(5)
     except KeyboardInterrupt:
+        os.system("clear")
         print(logo)
         print("\nStopping UDP attack.")
         time.sleep(5)
     finally:
         sock.close()
+        os.system("clear")
         print(logo)
         print("Socket closed.")
 
@@ -121,12 +123,14 @@ def run_tcp_attack(target_ip, target_port, attack_speed):
 └───────────────────────────────────────────────────────────────────────┘
 {RESET}""")
             except Exception as exc:
+                os.system("clear")
                 print(logo)
                 print(f"{BLUE}[Atom Output]:{RESET} TCP Connection failed: {exc}")
             finally:
                 sock.close()
             time.sleep(float(attack_speed))
     except KeyboardInterrupt:
+        os.system("clear")
         print(logo)
         print("\nStopping TCP attack.")
         time.sleep(5)
@@ -163,6 +167,7 @@ def run_http_attack(method, target_url, attack_speed, thread_count):
 └──────────────────────────────────────────────────────────────┘
 {RESET}""")
             except Exception as exc:
+                os.system("clear")
                 print(logo)
                 print(f"{BLUE}[Atom Output]:{RESET} {method} request failed: {exc}")
             time.sleep(float(attack_speed))
@@ -177,6 +182,7 @@ def run_http_attack(method, target_url, attack_speed, thread_count):
         while True:
             time.sleep(0.5)
     except KeyboardInterrupt:
+        os.system("clear")
         print(logo)
         print("\n Ctrl + c Pressed! stopping attack.")
         print("Attack has stopped successfully!")
