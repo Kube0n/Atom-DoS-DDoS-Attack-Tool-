@@ -170,7 +170,7 @@ def run_http_attack(method, target_url, attack_speed, thread_count):
                 os.system("clear")
                 print(logo)
                 print(f"{BLUE}[Atom Output]:{RESET} {method} request failed: {exc}")
-            time.sleep(float(attack_speed))
+            time.sleep(5)
 
     threads = []
     for _ in range(int(thread_count)):
