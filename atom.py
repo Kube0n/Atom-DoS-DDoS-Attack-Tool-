@@ -73,13 +73,16 @@ def run_udp_attack(target_ip, target_port, attack_speed):
 {RESET}""")
                 time.sleep(float(attack_speed))
             except Exception as exc:
+                print(logo)
                 print(f"{BLUE}[Atom Output]:{RESET} Failed to send packet: {exc}")
                 time.sleep(5)
     except KeyboardInterrupt:
+        print(logo)
         print("\nStopping UDP attack.")
         time.sleep(5)
     finally:
         sock.close()
+        print(logo)
         print("Socket closed.")
 
 
@@ -118,11 +121,13 @@ def run_tcp_attack(target_ip, target_port, attack_speed):
 └───────────────────────────────────────────────────────────────────────┘
 {RESET}""")
             except Exception as exc:
+                print(logo)
                 print(f"{BLUE}[Atom Output]:{RESET} TCP Connection failed: {exc}")
             finally:
                 sock.close()
             time.sleep(float(attack_speed))
     except KeyboardInterrupt:
+        print(logo)
         print("\nStopping TCP attack.")
         time.sleep(5)
 
