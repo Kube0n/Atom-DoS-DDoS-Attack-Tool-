@@ -192,6 +192,7 @@ def run_http_attack(method, target_url, attack_speed, thread_count):
 
 
 def main():
+    os.system("clear")
     print(logo)
     print("Welcome, to Atom!")
     print("Version 4.0 [Latest]")
