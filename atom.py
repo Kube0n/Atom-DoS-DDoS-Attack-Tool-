@@ -158,7 +158,7 @@ def main():
     print(f"{BLUE}│└─[01] UDP                                    │{RESET}")
     print(f"{BLUE}│└─[02] TCP                                    │{RESET}")
     print(f"{BLUE}│└─ Layer 7                                    │{RESET}")
-    print(f"{BLUE}│└─[03] SOON (DELETED HTTP,GET,POST)           │{RESET}")
+    print(f"{BLUE}│└─[03] COMING SOON!                           │{RESET}")
     print(f"{BLUE}└──────────────────────────────────────────────┘{RESET}")
 
     print("Choose Method:")
